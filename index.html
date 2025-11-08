@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transport Route Finder (Dijkstra) – Tamil Nadu (Client‑side)</title>
+  <style>
+    :root { --bg:#0b1020; --panel:#121832; --accent:#10b981; --text:#e5e7eb; --muted:#9ca3af; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:linear-gradient(180deg, #0b1020, #0b1428 40%, #0a0f1f); color:var(--text); }
+    .container { max-width: 980px; margin: 40px auto; padding: 0 16px; }
+    .card { background:var(--panel); border:1px solid #1f2a4d; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.35); overflow:hidden; }
+    .header { padding:24px 24px 0; }
+    h1 { margin:0; font-size:24px; font-weight:700; }
+    p.sub { margin:8px 0 0; color:var(--muted); font-size:14px; }
+    form { display:grid; gap:18px; padding: 20px 24px 24px; }
+    label { font-weight:600; font-size:14px; color:#d1d5db; }
+    textarea, input[type="text"] { width:100%; background:#0c1227; color:var(--text); border:1px solid #223057; border-radius:10px; padding:12px; font-size:14px; outline:none; }
+    textarea { min-height: 180px; line-height:1.45; resize:vertical; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .actions { display:flex; align-items:center; justify-content: space-between; gap:16px; }
+    .checkbox { display:flex; gap:8px; align-items:center; font-size:14px; color:#d1d5db; }
+    button { padding:12px 16px; border-radius:10px; border:1px solid #214a3a; background:linear-gradient(180deg, #10b981, #059669); color:#031c12; font-weight:800; letter-spacing:.2px; cursor:pointer; }
+    button:hover { filter:brightness(1.05); }
+    .result { border-top:1px solid #1f2a4d; background:#0d1430; padding:18px 24px 24px; display:grid; gap:10px; }
+    .badge { display:inline-block; background:#0f1d49; border:1px solid #223057; color:#93c5fd; padding:4px 8px; border-radius:999px; font-size:12px; }
+    .error { color:#fecaca; background:#2a0e12; border:1px solid #7f1d1d; padding:10px 12px; border-radius:10px; }
+    code.inline { background:#0c1227; padding:2px 6px; border-radius:6px; border:1px solid #223057; }
+    .path { font-weight:700; color:#a7f3d0; }
+    .kv { display:grid; grid-template-columns: 160px 1fr; gap:8px 16px; align-items:start; }
+    .kv div:first-child { color:#9ca3af; font-weight:600; }
+    .muted { color:#9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h1>Transport Route Finder (Dijkstra)</h1>
+        <p class="sub">Runs entirely in your browser. Enter edges as <code class="inline">U V W</code> with <code class="inline">W</code> in km.</p>
+      </div>
+      <form id="form">
+        <div>
+          <label for="edges">Edges</label>
+          <textarea id="edges" name="edges" placeholder="U V W&#10;Chennai Chengalpattu 52&#10;...&#10;"></textarea>
+        </div>
+        <div class="row">
+          <div>
+            <label for="source">Source</label>
+            <input id="source" name="source" type="text" list="nodes" />
+          </div>
+          <div>
+            <label for="target">Target</label>
+            <input id="target" name="target" type="text" list="nodes" />
+          </div>
+        </div>
+        <div class="actions">
+          <label class="checkbox"><input type="checkbox" id="undirected" checked /> Treat graph as undirected</label>
+          <button type="submit">Find Shortest Route</button>
+        </div>
+
+        <div id="result" class="result" hidden>
+          <span class="badge">Result</span>
+          <div id="resultContent"></div>
+        </div>
+        <datalist id="nodes"></datalist>
+      </form>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
